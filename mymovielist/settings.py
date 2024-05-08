@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&9qk^yz4#$6oi&xgph5*b1=t74gcvp(@eof_^5+wfn82iu84a5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '50.47.136.202']
+ALLOWED_HOSTS = ['localhost', '34.218.244.156']
 
 
 # Application definition
@@ -84,10 +84,11 @@ WSGI_APPLICATION = 'mymovielist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mymovielist',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '417685'
+        'NAME': 'djangoprojectdb',
+        'HOST': 'mymovielist-db.cd06mae8qt8g.us-west-2.rds.amazonaws.com',
+        'USER': 'admin',
+        'PASSWORD': '34372722',
+        'PORT': '3306',
     }
 }
 
