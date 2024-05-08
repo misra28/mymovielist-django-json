@@ -10,4 +10,4 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(models.ListEntry)
 class ListEntryAdmin(admin.ModelAdmin):
     list_display = ['user', 'movie_id', 'rating', 'date_watched', 'comments']
-    autocomplete_fields = ['movie_id', 'user']
+    autocomplete_fields = ['user']
