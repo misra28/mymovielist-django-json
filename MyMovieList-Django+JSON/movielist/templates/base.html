@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>MyMovieList</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/styles2.css' %}" rel="stylesheet" />
+        <style>
+
+        </style>
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+        <br/>
+        <!-- Page content-->
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container text-center">
+                <img src="{% static 'tmdb.svg' %}" width='200'>
+                <br/>
+                <br/>
+                <p class="m-0 text-center text-white">All movie information and posters are retrieved using <a href = "https://www.themoviedb.org/?language=en-US">TMDB.</a></p>
+                <br/>
+                <p class="m-0 text-center text-white">
+                    Copyright &copy; MyMovieList 2024
+                </p>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        {% block footer %}
+        {% endblock %}
+    </body>
+</html>

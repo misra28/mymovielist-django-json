@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="{% url 'display_home' %}" class="btn btn-secondary">Back</a>
+<br/>
+<br/>
+    <div class="card text-left">
+        <div class="card-header">
+            <h4>{{ entry.title }}</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="{{ entry.poster_url }}" width="200"></img>
+                    <br/>
+                    <br/>
+                    <h5 class="card-title">Starring: </h5>
+                    {% for actor in actors %}
+                        <h6 class="card-text">{{ actor.name }}</h6>
+                        <img src="{{ actor.profile_path }}" width="150"></img>
+                        <br/>
+                        <br/>
+                    {% endfor %}
+                </div>
+                <div class="col-md-10">
+                    {% if entry.original_title != entry.title %}
+                        <h5 class="card-title">Also Known As: {{ entry.original_title }}</h5>
+                    {% endif %}
+                    <p class="card-text">{{ entry.overview }}</p>
+                    <h5 class="card-title">Genres:</h5>
+                    {% for genre in entry.genres %}
+                        <h6 class="card-text">{{ genre }}</h6>
+                    {% endfor %}
+                    <h5 class="card-title">Your Rating: {{ entry.rating }}</h5>
+                    <h5 class="card-title">Date Watched: {{ entry.date_watched }}</h5>
+                    <h5 class="card-text">Release Date: {{ entry.release_date }}</h5>
+                    <h5 class="card-text">Runtime: {{ entry.runtime }} minutes</h5>
+                    <h5 class="card-text">Comments: {{ entry.comments }}</h5>
+                    <h5 class="card-title">Additional Movie Posters:</h5>
+                    {% for poster in posters %}
+                        <img src="{{ poster }}" width="200"></img>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+{% endblock %}
