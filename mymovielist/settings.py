@@ -84,19 +84,19 @@ WSGI_APPLICATION = 'mymovielist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mymovielist',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '417685',
-    }
-}
-"""'default': {
-        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangoprojectdb',
         'HOST': 'mymovielist-db.cd06mae8qt8g.us-west-2.rds.amazonaws.com',
         'USER': 'admin',
         'PASSWORD': '34372722',
         'PORT': '3306',
+    }
+}
+"""'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mymovielist',
+        'HOST': 'localhost',
+        'USER': 'root',
+        'PASSWORD': '417685',
     }"""
 
 # Password validation
