@@ -19,9 +19,11 @@ class User(models.Model):
 class ListEntry(models.Model):
     user = models.ForeignKey('User', on_delete = models.CASCADE)
     movie_id = models.CharField(max_length=255)
+    movie_title = models.CharField(max_length=255, null = True)
     rating = models.DecimalField(decimal_places = 1, max_digits = 3)
     date_watched = models.DateField(null = True)
     comments = models.TextField(null = True)
+    poster_url = models.CharField(max_length=255, null = True)
 
     def __str__(self) -> str:
         return f"{self.user.username}: '{self.movie_id}'"

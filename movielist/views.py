@@ -45,11 +45,15 @@ def display_home(request):
         empty_list = True
         return render(request, 'home.html', {'empty_list': empty_list})
 
-    get_movies = []
     for entry in movielist:
-        get_movies.append(build_movie_dict(request, entry.movie_id))
+        if entry.poster_url == None:
+            entry.poster_url = build_movie_dict(request, entry.movie_id)['poster_url']
+            entry.save()
+        if entry.movie_title == None:
+            entry.movie_title = build_movie_dict(request, entry.movie_id)['title']
+            entry.save()
 
-    get_movies = sorted(get_movies, key=lambda d: d['title'])
+    get_movies = sorted(list(movielist), key=lambda d: d.movie_title)
     returndict = {
         'movielist': get_movies
     }
@@ -87,7 +91,13 @@ def filter_movies(request):
 
         get_movies = []
         for entry in le:
-            get_movies.append(build_movie_dict(request, entry.movie_id))
+            if entry.poster_url == None:
+                entry.poster_url = build_movie_dict(request, entry.movie_id)['poster_url']
+                entry.save()
+            if entry.movie_title == None:
+                entry.movie_title = build_movie_dict(request, entry.movie_id)['title']
+                entry.save()
+        get_movies = le
 
         return render(request, 'home.html', {'filtered': filtered, 'filtered2': filtered2, 'no_result': no_result, 'movielist': get_movies})
     else:
@@ -154,7 +164,7 @@ def query_movie(request):
     
     q = request.POST['movie_query']
     movie_query = urllib.parse.quote_plus(q)
-    url = f"https://api.themoviedb.org/3/search/movie?query={movie_query}&include_adult=true&language=en-US&page=1"
+    url = f"https://api.themoviedb.org/3/search/movie?query={movie_query}&include_adult=false&language=en-US&page=1"
 
     movie_data = requests.get(url, headers=get_tmdb_headers()).json()
     movie_results = []
@@ -163,14 +173,19 @@ def query_movie(request):
 
     for movie in movie_data['results']:
         check = ListEntry.objects.filter(movie_id=movie['id'], user_id=get_user_id(request))
-        if check.count() > 0:
+        if check.count() > 0 or '/' in movie['title']:
             skipped = True
             continue
 
         if movie['poster_path'] == None:
-            no_poster = True
+            no_poster = True 
         else:
             no_poster = False
+        
+        try:
+            date = movie['release_date']
+        except:
+            date = None
 
         movie_dict = {
             'id': movie['id'],
@@ -179,7 +194,7 @@ def query_movie(request):
             'overview': movie['overview'],
             'poster_path': "https://image.tmdb.org/t/p/w500" + str(movie['poster_path']),
             'poster_extension': str(movie['poster_path'])[1:],
-            'release_date': movie['release_date'],
+            'release_date': date,
             'no_poster': no_poster,
         }
         movie_results.append(movie_dict)
@@ -242,7 +257,13 @@ def get_movie_actors(movie_id):
 
 
 def build_movie_dict(request, movie_id):
-    entry = ListEntry.objects.get(movie_id=movie_id, user_id=get_user_id(request))
+    try: 
+        entry = ListEntry.objects.get(movie_id=movie_id, user_id=get_user_id(request))
+    except:
+        entry = ListEntry.objects.filter(movie_id=movie_id, user_id=get_user_id(request))
+        while entry.count() > 1:
+            entry[-1].delete()
+
     movie = get_movie_json(movie_id)
 
     genre_list = []
