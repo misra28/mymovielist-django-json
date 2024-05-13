@@ -39,7 +39,7 @@ def display_home(request):
         return render(request, 'home.html', {})
     
     empty_list = False
-    movielist = list(ListEntry.objects.filter(user_id=get_user_id(request)))
+    movielist = list(ListEntry.objects.filter(user_id=get_user_id(request))).order_by('-rating')
 
     if (len(movielist) <= 0):
         empty_list = True
