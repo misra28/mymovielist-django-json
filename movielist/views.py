@@ -39,7 +39,7 @@ def display_home(request):
         return render(request, 'home.html', {})
     
     empty_list = False
-    movielist = list(ListEntry.objects.filter(user_id=get_user_id(request)).order_by('-rating'))
+    movielist = list(ListEntry.objects.filter(user_id=get_user_id(request)))
 
     if (len(movielist) <= 0):
         empty_list = True
@@ -53,7 +53,7 @@ def display_home(request):
             entry.movie_title = build_movie_dict(request, entry.movie_id)['title']
             entry.save()
 
-    get_movies = sorted(list(movielist), key=lambda d: d.movie_title)
+    get_movies = sorted(list(movielist), key=lambda d: d.rating)
     returndict = {
         'movielist': get_movies
     }
