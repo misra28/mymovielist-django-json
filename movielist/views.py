@@ -53,7 +53,7 @@ def display_home(request):
             entry.movie_title = build_movie_dict(request, entry.movie_id)['title']
             entry.save()
 
-    get_movies = sorted(list(movielist), key=lambda d: d.rating)
+    get_movies = sorted(list(movielist), key=lambda d: d.rating, reverse=True)
     returndict = {
         'movielist': get_movies
     }
