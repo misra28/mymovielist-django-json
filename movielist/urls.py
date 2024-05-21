@@ -10,6 +10,7 @@ urlpatterns = [
     path('view_movie_info/<movie_id>', views.view_movie_info, name="view_movie_info"),
     path('update_movie/<movie_id>', views.update_movie, name="update_movie"),
     path('delete_movie/<movie_id>', views.delete_movie, name="delete_movie"),
+    path('update_poster_path/<movie_id>/<poster_extension>', views.update_poster_path, name="update_poster_path"),
 ]
 
 """path('filter_summary/<filtered>/<filtered2>/', views.filter_summary, name="filter-summary"),

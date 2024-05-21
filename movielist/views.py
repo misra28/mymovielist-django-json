@@ -60,6 +60,15 @@ def display_home(request):
     return render(request, 'home.html', returndict)
 
 
+def update_poster_path(request, movie_id, poster_extension):
+    path = 'https://image.tmdb.org/t/p/w500/' + poster_extension
+
+    with transaction.atomic(), connection.cursor() as cursor:
+        cursor.execute("""UPDATE movielist_listentry SET poster_url = %s WHERE user_id = %s AND movie_id = %s""", [path, get_user_id(), movie_id])
+
+    return HttpResponseRedirect('/movielist/home')
+
+
 def filter_movies(request):
     if request.method == "POST":
         filtered = request.POST['filtered']
