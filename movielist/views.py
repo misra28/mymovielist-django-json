@@ -61,10 +61,16 @@ def display_home(request):
 
 
 def update_poster_path(request, movie_id, poster_extension):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/movielist/home')
+    
     path = 'https://image.tmdb.org/t/p/w500/' + poster_extension
 
     with transaction.atomic(), connection.cursor() as cursor:
-        cursor.execute("""UPDATE movielist_listentry SET poster_url = %s WHERE user_id = %s AND movie_id = %s""", [path, get_user_id(request), movie_id])
+        #cursor.execute("""UPDATE movielist_listentry SET poster_url = %s WHERE user_id = %s AND movie_id = %s""", [path, get_user_id(request), movie_id])
+        entry = ListEntry.objects.get(user_id=get_user_id(request), movie_id=movie_id)
+        entry.poster_url = path
+
 
     return HttpResponseRedirect('/movielist/home')
 
@@ -156,8 +162,13 @@ def view_movie_info(request, movie_id):
     
     with transaction.atomic(), connection.cursor() as cursor:
         movie_dict = build_movie_dict(request, movie_id)
-        posters = get_movie_posters(movie_id)
         actors = get_movie_actors(movie_id)
+        poster_extensions = get_movie_posters(movie_id)
+        posters = []
+
+        for ext in poster_extensions:
+            posters.append('https://image.tmdb.org/t/p/w500/' + ext)
+
         
     returndict = {
         'entry': movie_dict,
@@ -296,14 +307,14 @@ def build_movie_dict(request, movie_id):
 
 
 def get_movie_posters(movie_id):
-    """Given a movie_id this function will return the title's posters."""
+    """Given a movie_id this function will return the title's poster extensions."""
 
     url = f"https://api.themoviedb.org/3/movie/{movie_id}/images"
     data = requests.get(url, headers=get_tmdb_headers()).json()
     getpaths = []
     for poster in data['posters']:
         path = poster['file_path']
-        getpaths.append("https://image.tmdb.org/t/p/w500" + path)
+        getpaths.append(path)
     
     if len(getpaths) > 25:
         getpaths = getpaths[:25]
