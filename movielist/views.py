@@ -163,12 +163,7 @@ def view_movie_info(request, movie_id):
     with transaction.atomic(), connection.cursor() as cursor:
         movie_dict = build_movie_dict(request, movie_id)
         actors = get_movie_actors(movie_id)
-        poster_extensions = get_movie_posters(movie_id)
-        posters = []
-
-        for ext in poster_extensions:
-            posters.append('https://image.tmdb.org/t/p/w500' + ext)
-
+        posters = get_movie_posters(movie_id)
         
     returndict = {
         'entry': movie_dict,
