@@ -40,7 +40,7 @@
                     <h5 class="card-title">Additional Movie Posters:</h5>
                     {% for poster in posters %}
                         <a href="{% url 'update_poster_path' entry.movie_id poster %}" class="btn btn-secondary">
-                            <img src="https://image.tmdb.org/t/p/w500/{{ poster }}" width="200"></img>
+                            <img src="https://image.tmdb.org/t/p/w500{{ poster }}" width="200"></img>
                         </a>
                     {% endfor %}
                 </div>

@@ -64,7 +64,7 @@ def update_poster_path(request, movie_id, poster_extension):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/movielist/home')
     
-    path = 'https://image.tmdb.org/t/p/w500/' + poster_extension
+    path = 'https://image.tmdb.org/t/p/w500' + poster_extension
 
     with transaction.atomic(), connection.cursor() as cursor:
         #cursor.execute("""UPDATE movielist_listentry SET poster_url = %s WHERE user_id = %s AND movie_id = %s""", [path, get_user_id(request), movie_id])
@@ -167,7 +167,7 @@ def view_movie_info(request, movie_id):
         posters = []
 
         for ext in poster_extensions:
-            posters.append('https://image.tmdb.org/t/p/w500/' + ext)
+            posters.append('https://image.tmdb.org/t/p/w500' + ext)
 
         
     returndict = {
@@ -313,7 +313,7 @@ def get_movie_posters(movie_id):
     data = requests.get(url, headers=get_tmdb_headers()).json()
     getpaths = []
     for poster in data['posters']:
-        path = poster['file_path']
+        path = poster['file_path'][1:]
         getpaths.append(path)
     
     if len(getpaths) > 25:
