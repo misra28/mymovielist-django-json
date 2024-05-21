@@ -70,6 +70,7 @@ def update_poster_path(request, movie_id, poster_extension):
         #cursor.execute("""UPDATE movielist_listentry SET poster_url = %s WHERE user_id = %s AND movie_id = %s""", [path, get_user_id(request), movie_id])
         entry = ListEntry.objects.get(user_id=get_user_id(request), movie_id=movie_id)
         entry.poster_url = path
+        entry.save()
 
 
     return HttpResponseRedirect('/movielist/home')
