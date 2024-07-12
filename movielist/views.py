@@ -254,8 +254,8 @@ def get_movie_actors(movie_id):
     actors = requests.get(url, headers=get_tmdb_headers()).json()
 
     get_actors = []
-    upper_bound = actors['cast'].length
-    
+    upper_bound = len(actors['cast'])
+
     if (upper_bound > 5):
         upper_bound = 5
 
