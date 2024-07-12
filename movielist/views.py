@@ -7,7 +7,6 @@ from movielist.models import ListEntry
 from .forms import *
 from .models import *
 import requests
-import pymongo
 import urllib.parse
 
 
@@ -255,7 +254,12 @@ def get_movie_actors(movie_id):
     actors = requests.get(url, headers=get_tmdb_headers()).json()
 
     get_actors = []
-    for i in range(0, 5):
+    upper_bound = actors['cast'].length
+    
+    if (upper_bound > 5):
+        upper_bound = 5
+
+    for i in range(0, upper_bound):
         path = actors['cast'][i]['profile_path']
 
         if path == None:
