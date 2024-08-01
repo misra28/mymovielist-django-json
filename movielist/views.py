@@ -17,12 +17,12 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from .pagination import DefaultPagination
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ListEntryViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
     pagination_class = DefaultPagination
     serializer_class = ListEntrySerializer
-    from django_filters.rest_framework import DjangoFilterBackend
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = ['rating', 'date_watched', 'movie_title']
     search_fields = ['rating', 'date_watched', 'movie_title']
