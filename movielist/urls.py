@@ -1,5 +1,9 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
+from rest_framework_nested import routers
+
+router = routers.DefaultRouter()
+router.register('list-entries', views.ListEntryViewSet, basename='list-entries')
 
 urlpatterns = [
     path('home/', views.display_home, name = 'display_home'),
@@ -11,6 +15,9 @@ urlpatterns = [
     path('update_movie/<movie_id>', views.update_movie, name="update_movie"),
     path('delete_movie/<movie_id>', views.delete_movie, name="delete_movie"),
     path('update_poster_path/<movie_id>/<poster_extension>', views.update_poster_path, name="update_poster_path"),
+
+    # API
+    path(r'', include(router.urls)),
 ]
 
 """path('filter_summary/<filtered>/<filtered2>/', views.filter_summary, name="filter-summary"),

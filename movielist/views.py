@@ -9,6 +9,28 @@ from .models import *
 import requests
 import urllib.parse
 
+from movielist.serializers import ListEntrySerializer, UserSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from .pagination import DefaultPagination
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.filters import SearchFilter, OrderingFilter
+
+class ListEntryViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    pagination_class = DefaultPagination
+    serializer_class = ListEntrySerializer
+    from django_filters.rest_framework import DjangoFilterBackend
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    ordering_fields = ['rating', 'date_watched', 'movie_title']
+    search_fields = ['rating', 'date_watched', 'movie_title']
+
+    def get_queryset(self):
+        user = self.request.user
+        return ListEntry.objects.filter(user_id=user.id)
+
 
 def update_movie(request, movie_id):
     if not request.user.is_authenticated:
