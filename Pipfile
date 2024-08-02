@@ -11,6 +11,7 @@ requests = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 django-rest-framework-nested = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
