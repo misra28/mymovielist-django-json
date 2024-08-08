@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'djangoprojectdb',
         'HOST': 'mymovielist-db.cd06mae8qt8g.us-west-2.rds.amazonaws.com',
         'USER': 'admin',
-        'PASSWORD': os.environ['PASSWORD_SECRET'],
+        'PASSWORD': '34372722',
         'PORT': '3306',
     }
     # 'default': {
