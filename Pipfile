@@ -12,6 +12,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 django-rest-framework-nested = "*"
 django-cors-headers = "*"
+mysqlclient = "*"
 
 [dev-packages]
 
