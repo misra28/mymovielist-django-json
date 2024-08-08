@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from datetime import timedelta
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -93,7 +94,7 @@ DATABASES = {
         'NAME': 'djangoprojectdb',
         'HOST': 'mymovielist-db.cd06mae8qt8g.us-west-2.rds.amazonaws.com',
         'USER': 'admin',
-        'PASSWORD': '34372722',
+        'PASSWORD': os.environ['PASSWORD_SECRET'],
         'PORT': '3306',
     }
     # 'default': {
