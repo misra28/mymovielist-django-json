@@ -4,12 +4,7 @@
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.12"}
     }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "mymovielist/wsgi.py"
-        }
-    ],
+    
     "headers": [
     {
       "source": "/api/(.*)",
