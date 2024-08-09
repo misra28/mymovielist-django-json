@@ -12,7 +12,6 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 django-rest-framework-nested = "*"
 django-cors-headers = "*"
-mysqlclient = "*"
 pymysql = "*"
 dj-database-url = "*"
 
