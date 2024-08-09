@@ -9,6 +9,7 @@ from .models import *
 import requests
 import urllib.parse
 
+
 from movielist.serializers import ListEntrySerializer, UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
