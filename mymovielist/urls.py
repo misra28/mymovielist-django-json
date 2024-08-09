@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-import debug_toolbar
+# import debug_toolbar
 
 admin.site.site_header = 'MovieList Admin'
 admin.site.index_title = 'Admin'
@@ -29,5 +29,5 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    path('__debug__/', include(debug_toolbar.urls)),
+    # path('__debug__/', include(debug_toolbar.urls)),
 ]
