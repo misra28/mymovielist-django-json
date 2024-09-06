@@ -18,6 +18,7 @@ urlpatterns = [
 
     # API
     path(r'', include(router.urls)),
+    
 ]
 
 """path('filter_summary/<filtered>/<filtered2>/', views.filter_summary, name="filter-summary"),
